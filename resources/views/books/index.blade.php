@@ -20,6 +20,9 @@
             </div>
         </div>
     </form>
+    <div class="create-wrapper">
+        <a href="/create" class="create-btn" title="Create new book">Create +</a>
+    </div>
     <div class="row sort-row">
         <div class="col-sm-3 col-6">
             <span>Title</span>

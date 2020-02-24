@@ -3,6 +3,17 @@
     .filter-form{
         .filter-btn{
             margin-bottom: 1rem;
+            border: 1px solid;
+            background: 0;
+        }
+    }
+    .create-wrapper{
+        margin-bottom: 10px;
+        .create-btn{
+            border: 1px solid #000;
+            padding: 1px 8px;
+            color: #000;
+            text-decoration: none;
         }
     }
     .sort-row{
@@ -11,6 +22,24 @@
         }
         .export-item{
             display: none;
+        }
+    }
+    .create-form{
+        .required{
+            color: #f00;
+            font-weight: bold;
+        }
+        .alert-danger{
+            padding: 0;
+            background: none;
+            border: 0;
+            color: #f00;
+            margin: 0;
+        }
+        .create-btn{
+            margin-bottom: 1rem;
+            border: 1px solid;
+            background: 0;
         }
     }
 }

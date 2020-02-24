@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Book;
 
 class BookController extends Controller
 {
@@ -42,6 +43,38 @@ class BookController extends Controller
             'title' => 'Home page',
             'books' => $books,
             'defaults' => $defaults,
+            'orderTitle' => [
+                'desc' => '/?'.$urlQuery.$mark.'orderTitle=desc',
+                'asc' => '/?'.$urlQuery.$mark.'orderTitle=asc'
+            ],
+            'orderAuthor' => [
+                'desc' => '/?'.$urlQuery.$mark.'orderAuthor=desc',
+                'asc' => '/?'.$urlQuery.$mark.'orderAuthor=asc'
+            ]
+        ]);
+    }
+
+    public function create(){
+        return view('books.create', [
+            'title' => 'Create book',
+        ]);
+    }
+
+    public function store(Request $request){
+        $request->validate([
+            'title' => ['required'],
+            'author' => ['required'],
+        ]);
+
+        Book::create($request->all());
+
+        $books = Book::all();
+
+        $urlQuery = $mark = '';
+        return view('books.index', [
+            'title' => 'Home page',
+            'books' => $books,
+            'defaults' => [],
             'orderTitle' => [
                 'desc' => '/?'.$urlQuery.$mark.'orderTitle=desc',
                 'asc' => '/?'.$urlQuery.$mark.'orderTitle=asc'

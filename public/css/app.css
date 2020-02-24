@@ -10890,6 +10890,19 @@ a.text-dark:focus {
 
 .container .filter-form .filter-btn {
   margin-bottom: 1rem;
+  border: 1px solid;
+  background: 0;
+}
+
+.container .create-wrapper {
+  margin-bottom: 10px;
+}
+
+.container .create-wrapper .create-btn {
+  border: 1px solid #000;
+  padding: 1px 8px;
+  color: #000;
+  text-decoration: none;
 }
 
 .container .sort-row .export-btn {
@@ -10898,6 +10911,25 @@ a.text-dark:focus {
 
 .container .sort-row .export-item {
   display: none;
+}
+
+.container .create-form .required {
+  color: #f00;
+  font-weight: bold;
+}
+
+.container .create-form .alert-danger {
+  padding: 0;
+  background: none;
+  border: 0;
+  color: #f00;
+  margin: 0;
+}
+
+.container .create-form .create-btn {
+  margin-bottom: 1rem;
+  border: 1px solid;
+  background: 0;
 }
 
 .navbar-laravel {
