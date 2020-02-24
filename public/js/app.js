@@ -19283,6 +19283,8 @@ module.exports = function(module) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./script */ "./resources/js/script.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -19314,6 +19316,30 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/script.js":
+/*!********************************!*\
+  !*** ./resources/js/script.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+window.showHideDiv = function () {
+  var srcElements = document.getElementsByClassName("export-item");
+  srcElements = Array.from(srcElements);
+
+  if (srcElements != null) {
+    srcElements.map(function (srcElement) {
+      if (window.getComputedStyle(srcElement).display != "none") {
+        srcElement.style.display = 'none';
+      } else {
+        srcElement.style.display = 'flex';
+      }
+    });
+  }
+};
 
 /***/ }),
 

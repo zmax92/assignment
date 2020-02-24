@@ -10884,6 +10884,22 @@ a.text-dark:focus {
   }
 }
 
+.container {
+  background: lightblue;
+}
+
+.container .filter-form .filter-btn {
+  margin-bottom: 1rem;
+}
+
+.container .sort-row .export-btn {
+  cursor: pointer;
+}
+
+.container .sort-row .export-item {
+  display: none;
+}
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
