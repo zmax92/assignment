@@ -12,3 +12,15 @@ window.showHideDiv = () => {
         });
     }
 }
+
+window.deleteFunction = (id, title, author) => {
+    if (confirm("\nDelete book \n"+title+" by "+author+"?")) {
+        axios.delete('/delete/'+id)
+        .then(function (response) {
+            window.location = "/";
+        })
+        .catch(function (error) {
+            alert(error);
+        });
+    }
+}

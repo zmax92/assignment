@@ -19341,6 +19341,16 @@ window.showHideDiv = function () {
   }
 };
 
+window.deleteFunction = function (id, title, author) {
+  if (confirm("\nDelete book \n" + title + " by " + author + "?")) {
+    axios["delete"]('/delete/' + id).then(function (response) {
+      window.location = "/";
+    })["catch"](function (error) {
+      alert(error);
+    });
+  }
+};
+
 /***/ }),
 
 /***/ "./resources/sass/app.scss":

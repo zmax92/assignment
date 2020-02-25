@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Response;
 use App\Book;
 
 class BookController extends Controller
@@ -30,6 +31,7 @@ class BookController extends Controller
             }
         }
         $books = $query->get();
+        $books = $books->toArray();
 
         $mark = '';
         if(!empty($urlQuery)){
@@ -84,5 +86,17 @@ class BookController extends Controller
                 'asc' => '/?'.$urlQuery.$mark.'orderAuthor=asc'
             ]
         ]);
+    }
+
+    public function destroy($bookId){
+        $response = new response();
+        $book = Book::find($bookId);
+
+        if(!empty($book)){
+            if($book->delete()){
+                return $response->setStatusCode(200);
+            }
+        }
+        return $response->setStatusCode(500);
     }
 }

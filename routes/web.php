@@ -14,3 +14,4 @@
 Route::get('/', 'BookController@index');
 Route::get('/create', 'BookController@create');
 Route::post('/', 'BookController@store');
+Route::delete('/delete/{bookId}', 'BookController@destroy');
