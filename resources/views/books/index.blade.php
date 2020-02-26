@@ -21,7 +21,7 @@
         </div>
     </form>
     <div class="create-wrapper">
-        <a href="/create" class="create-btn" title="Create new book">Create +</a>
+        <a href="/create" class="create-btn" dusk="create-btn" title="Create new book">Create +</a>
     </div>
     @if (!empty( $books ))
         <div class="row sort-row">

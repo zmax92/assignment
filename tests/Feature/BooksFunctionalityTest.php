@@ -8,6 +8,8 @@ use Tests\TestCase;
 class BooksFunctionalityTest extends TestCase
 {
     use RefreshDatabase;
+    private $title = 'Example Book';
+    private $author = 'Example Author';
     /**
      * A basic test to test creating book with missing requested data.
      *
@@ -24,13 +26,13 @@ class BooksFunctionalityTest extends TestCase
 
         $response = $this->post('/', [
             'title' => '',
-            'author' => 'Example Author'
+            'author' => $this->author
         ]);
 
         $response->assertSessionHasErrors('title');
 
         $response = $this->post('/', [
-            'title' => 'Example Book',
+            'title' => $this->title,
             'author' => ''
         ]);
 
@@ -45,8 +47,8 @@ class BooksFunctionalityTest extends TestCase
     public function testCeateBookWithBValidData()
     {
         $response = $this->post('/', [
-            'title' => 'Example Book',
-            'author' => 'Example Author'
+            'title' => $this->title,
+            'author' => $this->author
         ]);
 
         $response->assertOk();

@@ -25,7 +25,7 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-sm-6 text-center">
-                <input type="submit" class="create-btn" value="Create">
+                <input type="submit" class="create-btn" dusk="create-btn" value="Create">
             </div>
         </div>
     </form>
