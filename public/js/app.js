@@ -19371,8 +19371,8 @@ window.deleteFunction = function (id, title, author) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /media/zmaher/7ACC2D61CC2D18C1/zmaher.com/assignment/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /media/zmaher/7ACC2D61CC2D18C1/zmaher.com/assignment/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /media/zmaher/F044AFD044AF97BC1/zmaher.com/Assignment/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /media/zmaher/F044AFD044AF97BC1/zmaher.com/Assignment/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

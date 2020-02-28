@@ -102,7 +102,7 @@
                         <td>{{ $book->title }}</td>
                         <td>{{ $book->author }}</td>
                         <td>
-                            <a href="#" class="delete-btn" onclick="deleteFunction('{{ $book->id }}', '{{ $book->title }}', '{{ $book->author }}')"><i class="material-icons">delete</i></a>
+                            <a href="#" class="delete-btn" dusk="pin-{{ $book->id }}" onclick="deleteFunction('{{ $book->id }}', '{{ $book->title }}', '{{ $book->author }}')"><i class="material-icons">delete</i></a>
                         </td>
                     </tr>
                 @endforeach

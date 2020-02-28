@@ -5,12 +5,15 @@ namespace Tests\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
+use Illuminate\Support\Facades\DB;
 use App\Book;
 
 class BooksBrowserTest extends DuskTestCase
 {
+    //use DatabaseMigrations;
     private $title = 'Example Book';
     private $author = 'Example Author';
+    private $book;
     /**
      * Browser test of book creation.
      *
@@ -26,8 +29,7 @@ class BooksBrowserTest extends DuskTestCase
                 ->type('title', $this->title)
                 ->type('author', $this->author)
                 ->click('@create-btn')
-                ->assertPathIs('/')
-                ->pause(1000);
+                ->assertPathIs('/');
         });
 
         $this->assertDatabaseHas('books', [
@@ -41,20 +43,36 @@ class BooksBrowserTest extends DuskTestCase
      *
      * @return void
      */
-    /*public function testFrontendDeletionOfBook()
+    public function testFrontendDeletionOfBook()
     {
-        $book = Book::create([
-            'title' => $this->title,
-            'author' => $this->author,
-        ]);
+        $query = DB::table('books');
+        $books = $query->get();
+        $books = $books->toArray();
+
+        if(!empty($books)){
+            // Database is populated, randomly select book to delete
+            $nbr = count($books);
+
+            $this->book = $nbr > 1 ? $books[ rand (0, $nbr-1 ) ] : $books[0];
+        }
+        else{
+            // Database is empty, create book
+            $this->book = Book::create([
+                'title' => $this->title,
+                'author' => $this->author,
+            ]);
+        }
 
         $this->browse(function (Browser $browser) {
-            
+            $browser->visit('/')
+                ->click('@pin-'.$this->book->id)
+                ->acceptDialog()
+                ->assertPathIs('/')
+                ->pause(1000);
         });
 
-        $this->assertDeleted('books', [
-            'title' => $this->title,
-            'author' => $this->author
+        $this->assertDatabaseMissing('books', [
+            'id' => $this->book->id
         ]);
-    }*/
+    }
 }
