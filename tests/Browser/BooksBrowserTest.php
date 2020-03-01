@@ -75,4 +75,65 @@ class BooksBrowserTest extends DuskTestCase
             'id' => $this->book->id
         ]);
     }
+
+    /**
+     * Browser test of updating books author.
+     *
+     * @return void
+     */
+    public function testFrontendUpdateAuthor()
+    {
+        $query = DB::table('books');
+        $books = $query->get();
+        $books = $books->toArray();
+
+        if(!empty($books)) {
+            // Database is populated, randomly select book to update author
+            $this->child = count($books);
+
+            if($this->child > 1) {
+                $this->child = rand(0, $this->child - 1);
+                // child for books array is value 0 to n
+                $this->book = $books[ $this->child ];
+
+                // child for dusk asserts is value 1 to n
+                $this->child = $this->child + 1;
+            }
+            else {
+                $this->book = $books[0];
+                $this->child = 1;
+            }
+
+        }
+        else {
+            // Database is empty, create book
+            $this->book = Book::create([
+                'title' => $this->title,
+                'author' => $this->author,
+            ]);
+        }
+
+        $this->selector = '.books-list tr:nth-child('.$this->child.')';
+        $this->edit_btn = $this->selector.' .edit-icon';
+        $this->input = $this->selector.' .input-wrapper input';
+        $this->alert = $this->selector.' .alert-danger';
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/')
+                ->ensurejQueryIsAvailable();
+            $browser->assertVisible($this->edit_btn)
+                ->click($this->edit_btn)
+                ->assertVisible($this->input)
+                ->type($this->input, '')
+                ->assertVisible($this->alert)
+                ->type($this->input, $this->author);
+            $browser->script('return $("'.$this->input.'").blur();');
+            $browser->pause(1000); // pause, because blur does submit to backend
+            $browser->assertVisible($this->edit_btn);
+        });
+
+        $this->assertDatabaseHas('books', [
+            'id' => $this->book->id,
+            'author' => $this->author
+        ]);
+    }
 }

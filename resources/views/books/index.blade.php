@@ -82,7 +82,7 @@
                 </div>
             </div>
         </div>
-        <div class="table-responsive">
+        <div class="table-responsive books-list">
             <table class="w-100 table table-bordered table-hover table-sm">
                 <thead class="thead-dark">
                     <tr>
