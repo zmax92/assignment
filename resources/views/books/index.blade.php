@@ -46,10 +46,10 @@
                         <span>Title</span>
                     </div>
                     <div class="col-sm-6 col-6">
-                        <a href="{{$download['titleOnly']['xml']}}" title="Export authors list XML">
+                        <a href="{{$download['titleOnly']['xml'] ?? ''}}" title="Export authors list XML">
                             <img src="http://icons.iconarchive.com/icons/hopstarter/adobe-cs4/16/File-Adobe-Dreamweaver-XML-01-icon.png" />
                         </a>
-                        <a href="{{$download['titleOnly']['csv']}}" title="Export authors list CSV">
+                        <a href="{{$download['titleOnly']['csv'] ?? ''}}" title="Export authors list CSV">
                             <img src="https://img.icons8.com/office/16/000000/export-csv.png" />
                         </a>
                     </div>
@@ -59,10 +59,10 @@
                         <span>Author</span>
                     </div>
                     <div class="col-sm-6 col-6">
-                        <a href="{{$download['authorOnly']['xml']}}" title="Export authors list XML">
+                        <a href="{{$download['authorOnly']['xml'] ?? ''}}" title="Export authors list XML">
                             <img src="http://icons.iconarchive.com/icons/hopstarter/adobe-cs4/16/File-Adobe-Dreamweaver-XML-01-icon.png" />
                         </a>
-                        <a href="{{$download['authorOnly']['csv']}}" title="Export authors list CSV">
+                        <a href="{{$download['authorOnly']['csv'] ?? ''}}" title="Export authors list CSV">
                             <img src="https://img.icons8.com/office/16/000000/export-csv.png" />
                         </a>
                     </div>
@@ -72,10 +72,10 @@
                         <span>Title & Author</span>
                     </div>
                     <div class="col-sm-6 col-6">
-                        <a href="{{$download['all']['xml']}}" title="Export authors list XML">
+                        <a href="{{$download['all']['xml'] ?? ''}}" title="Export authors list XML">
                             <img src="http://icons.iconarchive.com/icons/hopstarter/adobe-cs4/16/File-Adobe-Dreamweaver-XML-01-icon.png" />
                         </a>
-                        <a href="{{$download['all']['csv']}}" title="Export authors list CSV">
+                        <a href="{{$download['all']['csv'] ?? ''}}" title="Export authors list CSV">
                             <img src="https://img.icons8.com/office/16/000000/export-csv.png" />
                         </a>
                     </div>
