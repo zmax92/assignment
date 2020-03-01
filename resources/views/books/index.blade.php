@@ -21,7 +21,7 @@
         </div>
     </form>
     <div class="create-wrapper">
-        <a href="/create" class="create-btn" dusk="create-btn" title="Create new book">Create +</a>
+        <a href="/create" class="create-btn" title="Create new book">Create +</a>
     </div>
     @if (!empty( $books ))
         <div class="row sort-row">
@@ -111,7 +111,7 @@
                             </div>
                         </td>
                         <td>
-                            <span class="delete-btn" dusk="pin-{{ $book->id }}" onclick="deleteFunction('{{ $book->id }}', '{{ $book->title }}', '{{ $book->author }}')"><i class="material-icons">delete</i></span>
+                            <span class="delete-btn" onclick="deleteFunction('{{ $book->id }}', '{{ $book->title }}', '{{ $book->author }}')"><i class="material-icons">delete</i></span>
                         </td>
                     </tr>
                 @endforeach

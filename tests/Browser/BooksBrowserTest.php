@@ -24,11 +24,16 @@ class BooksBrowserTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
                 ->assertSee('Create +')
-                ->click('@create-btn')
+                ->click('.create-wrapper .create-btn')
                 ->assertPathIs('/create')
+                ->type('title', '')
+                ->type('author', '')
+                ->click('.create-form .create-btn')
+                ->assertPathIs('/create')
+                ->assertVisible('.create-form .alert-danger')
                 ->type('title', $this->title)
                 ->type('author', $this->author)
-                ->click('@create-btn')
+                ->click('.create-form .create-btn')
                 ->assertPathIs('/');
         });
 
@@ -49,25 +54,15 @@ class BooksBrowserTest extends DuskTestCase
         $books = $query->get();
         $books = $books->toArray();
 
-        if(!empty($books)){
-            // Database is populated, randomly select book to delete
-            $nbr = count($books);
-
-            $this->book = $nbr > 1 ? $books[ rand (0, $nbr-1 ) ] : $books[0];
-        }
-        else{
-            // Database is empty, create book
-            $this->book = Book::create([
-                'title' => $this->title,
-                'author' => $this->author,
-            ]);
-        }
+        $this->getRandom($books, 'delete_book');
 
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
-                ->click('@pin-'.$this->book->id)
+                ->assertVisible($this->delete_btn)
+                ->click($this->delete_btn)
                 ->acceptDialog()
                 ->assertPathIs('/')
+                //pause because test done too quickly and it's still not deleted from database
                 ->pause(1000);
         });
 
@@ -87,36 +82,7 @@ class BooksBrowserTest extends DuskTestCase
         $books = $query->get();
         $books = $books->toArray();
 
-        if(!empty($books)) {
-            // Database is populated, randomly select book to update author
-            $this->child = count($books);
-
-            if($this->child > 1) {
-                $this->child = rand(0, $this->child - 1);
-                // child for books array is value 0 to n
-                $this->book = $books[ $this->child ];
-
-                // child for dusk asserts is value 1 to n
-                $this->child = $this->child + 1;
-            }
-            else {
-                $this->book = $books[0];
-                $this->child = 1;
-            }
-
-        }
-        else {
-            // Database is empty, create book
-            $this->book = Book::create([
-                'title' => $this->title,
-                'author' => $this->author,
-            ]);
-        }
-
-        $this->selector = '.books-list tr:nth-child('.$this->child.')';
-        $this->edit_btn = $this->selector.' .edit-icon';
-        $this->input = $this->selector.' .input-wrapper input';
-        $this->alert = $this->selector.' .alert-danger';
+        $this->getRandom($books, 'update_author');
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
                 ->ensurejQueryIsAvailable();
@@ -135,5 +101,56 @@ class BooksBrowserTest extends DuskTestCase
             'id' => $this->book->id,
             'author' => $this->author
         ]);
+    }
+
+    /**
+     * Select random or create new book for testing
+     *
+     * @param  array  $books
+     * @param  string $test
+     *  Variable to help set, if needed, other params of test
+     * @return void
+     */
+    private function getRandom($books, $test = ''){
+        $this->child = 1;
+
+        if(!empty($books)) {
+            // Database is populated, randomly select book for test
+            $this->child = count($books);
+
+            if($this->child > 1) {
+                $this->child = rand(0, $this->child - 1);
+                // child for books array is value 0 to n
+                $this->book = $books[ $this->child ];
+
+                // child for dusk asserts is value 1 to n
+                $this->child = $this->child + 1;
+            }
+            else {
+                $this->book = $books[0];
+            }
+        }
+        else {
+            // Database is empty, create book
+            $this->book = Book::create([
+                'title' => $this->title,
+                'author' => $this->author,
+            ]);
+        }
+
+        if(!empty($test)){
+            switch($test){
+                case 'update_author':
+                    $this->selector = '.books-list tr:nth-child('.$this->child.')';
+                    $this->edit_btn = $this->selector.' .edit-icon';
+                    $this->input = $this->selector.' .input-wrapper input';
+                    $this->alert = $this->selector.' .alert-danger';
+                break;
+                case 'delete_book':
+                    $this->selector = '.books-list tr:nth-child('.$this->child.')';
+                    $this->delete_btn = $this->selector.' .delete-btn';
+                break;
+            }
+        }
     }
 }
