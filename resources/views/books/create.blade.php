@@ -18,7 +18,7 @@
             <div class="col-sm-6 col-12 form-group">
                 <label for="author">Author <span class="required">*</span></label>
                 <input type="text" class="form-control w-100" id="author" name="author">
-                @error('title')
+                @error('author')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>

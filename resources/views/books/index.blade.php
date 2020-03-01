@@ -99,10 +99,19 @@
                 </thead>
                 @foreach ($books as $book)
                     <tr>
-                        <td>{{ $book->title }}</td>
-                        <td>{{ $book->author }}</td>
                         <td>
-                            <a href="#" class="delete-btn" dusk="pin-{{ $book->id }}" onclick="deleteFunction('{{ $book->id }}', '{{ $book->title }}', '{{ $book->author }}')"><i class="material-icons">delete</i></a>
+                            {{ $book->title }}
+                        </td>
+                        <td>
+                            <div class="input-wrapper">
+                                <input type="text" data-id="{{ $book->id }}" value="{{ $book->author }}">
+                            </div>
+                            <div class="title-wrapper">
+                                <span class="text-static">{{ $book->author }}</span> <span class="edit-icon"><i class="material-icons">edit</i></span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="delete-btn" dusk="pin-{{ $book->id }}" onclick="deleteFunction('{{ $book->id }}', '{{ $book->title }}', '{{ $book->author }}')"><i class="material-icons">delete</i></span>
                         </td>
                     </tr>
                 @endforeach

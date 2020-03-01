@@ -18,6 +18,7 @@ class BookController extends Controller
                     case 'title':
                     case 'author':
                         $query->where($field, 'LIKE', '%'.$value.'%');
+                        // set defaults to persist filter values, after submit
                         $defaults[$field] = $value;
                         $urlQuery[] = $field.'='.$value;
                     break;
@@ -34,6 +35,7 @@ class BookController extends Controller
         $books = $books->toArray();
 
         $mark = '';
+        // construct url params for sorting, when previously filtering was done
         if(!empty($urlQuery)){
             $urlQuery = implode('&', $urlQuery);
             $mark = '&';
@@ -72,18 +74,16 @@ class BookController extends Controller
 
         $books = Book::all();
 
-        $urlQuery = $mark = '';
         return view('books.index', [
             'title' => 'Home page',
             'books' => $books,
-            'defaults' => [],
             'orderTitle' => [
-                'desc' => '/?'.$urlQuery.$mark.'orderTitle=desc',
-                'asc' => '/?'.$urlQuery.$mark.'orderTitle=asc'
+                'desc' => '/?orderTitle=desc',
+                'asc' => '/?orderTitle=asc'
             ],
             'orderAuthor' => [
-                'desc' => '/?'.$urlQuery.$mark.'orderAuthor=desc',
-                'asc' => '/?'.$urlQuery.$mark.'orderAuthor=asc'
+                'desc' => '/?orderAuthor=desc',
+                'asc' => '/?orderAuthor=asc'
             ]
         ]);
     }
@@ -94,6 +94,19 @@ class BookController extends Controller
 
         if(!empty($book)){
             if($book->delete()){
+                return $response->setStatusCode(200);
+            }
+        }
+        return $response->setStatusCode(500);
+    }
+
+    public function update(Request $request, $bookId){
+        $params = $request->all();
+        $response = new response();
+        $book = Book::find($bookId);
+        if(!empty($book)){
+            $book->author = $params['author'];
+            if($book->save()){
                 return $response->setStatusCode(200);
             }
         }
